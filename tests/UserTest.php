@@ -7,23 +7,28 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
+    private $user;
+
+    public function setUp(): void
+    {
+        $this->user = new User('Pierre', 'André', 'pandre@demo.com', 19);
+    }
 
     public function testIsValid()
     {
-        $user = new User('Pierre','Andre','pandre@demo.com',13);
-        $this->assertTrue($user->isValid());
+        $this->assertTrue($this->user->isValid());
 
-        $user = new User('Pierre','André','fvdrgtg',13);
-        $this->assertFalse($user->isValid());
+        $this->user->setEmail("mail");
+        $this->assertFalse($this->user->isValid());
 
-        $user = new User('Pierre','','pandre@demo.com',14);
-        $this->assertFalse($user->isValid());
+        $this->user->setLastName("");
+        $this->assertFalse($this->user->isValid());
 
-        $user = new User('','André','pandre@demo.com',16);
-        $this->assertFalse($user->isValid());
+        $this->user->setFirstName("");
+        $this->assertFalse($this->user->isValid());
 
-        $user = new User('Pierre','André','pandre@demo.com',9);
-        $this->assertFalse($user->isValid());
+        $this->user->setAge(9);
+        $this->assertFalse($this->user->isValid());
     }
 
 }
