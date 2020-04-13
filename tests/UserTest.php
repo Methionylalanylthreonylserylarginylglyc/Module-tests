@@ -14,21 +14,23 @@ class UserTest extends TestCase
         $this->user = new User('Pierre', 'André', 'pandre@demo.com', 19);
     }
 
-    public function testIsValid()
-    {
-        $this->assertTrue($this->user->isValid());
+    public function tearDown() : void {
+        unset($this->user);
+    }
 
+    public function testIsValidOK() {
+        $this->assertTrue($this->user->isValid());
+    }
+
+    public function testIsValidKO() {
         $this->user->setEmail("mail");
         $this->assertFalse($this->user->isValid());
+    }
 
-        $this->user->setLastName("");
-        $this->assertFalse($this->user->isValid());
-
-        $this->user->setFirstName("");
-        $this->assertFalse($this->user->isValid());
-
-        $this->user->setAge(9);
-        $this->assertFalse($this->user->isValid());
+    public function testIsValid()
+    {
+        $this->testIsValidOK();
+        $this->testIsValidKO();
     }
 
 }
